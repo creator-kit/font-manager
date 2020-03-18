@@ -1,13 +1,13 @@
 {
-	"name": "@samuelmeuli/font-manager",
-	"version": "1.4.0",
+	"name": "@creator-kit/font-manager",
+	"version": "1.4.2",
 	"description": "Manages, downloads and applies Google Fonts for picker components",
 	"author": {
 		"name": "Samuel Meuli",
 		"email": "me@samuelmeuli.com",
 		"url": "https://samuelmeuli.com"
 	},
-	"repository": "github:samuelmeuli/font-manager",
+	"repository": "github:creator-kit/font-manager",
 	"license": "MIT",
 	"keywords": [
 		"fonts",
@@ -18,9 +18,6 @@
 	"main": "./dist/index.js",
 	"module": "./dist/index.es.js",
 	"types": "./dist/index.d.ts",
-	"files": [
-		"./dist/"
-	],
 	"scripts": {
 		"start": "rollup --config --sourcemap --watch",
 		"build": "run-s build:*",
@@ -108,5 +105,8 @@
 		"hooks": {
 			"pre-commit": "yarn test && lint-staged"
 		}
+	},
+	"publishConfig": {
+		"registry": "https://npm.pkg.github.com"
 	}
 }
