@@ -1,6 +1,6 @@
 {
 	"name": "@creator-kit/font-manager",
-	"version": "1.4.3",
+	"version": "1.4.4",
 	"description": "Manages, downloads and applies Google Fonts for picker components",
 	"author": {
 		"name": "Samuel Meuli",

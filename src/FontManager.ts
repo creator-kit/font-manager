@@ -16,6 +16,8 @@ export default class FontManager {
 
 	private readonly options: Options;
 
+	private fontList: Font[];
+
 	private onChange: (font: Font) => void;
 
 	// Other class variables
@@ -73,17 +75,30 @@ export default class FontManager {
 		this.setActiveFont(defaultFamily, false);
 	}
 
+	public async searchFont(query: string): Promise<FontList | null> {
+		if (!this.fontList) {
+			return null;
+		}
+		const fontMap: FontList = new Map();
+		this.fontList
+			.filter(font => font.id.includes(query.toLowerCase()))
+			.map(font => fontMap.set(font.family, font));
+		fontMap.delete(this.activeFontFamily);
+		loadFontPreviews(fontMap, this.options.scripts, this.options.variants, this.selectorSuffix);
+		return fontMap;
+	}
+
 	/**
 	 * Fetch list of all fonts from Google Fonts API, filter it according to the class parameters and
 	 * save them to the font map
 	 */
 	public async init(): Promise<FontList> {
 		// Get list of all fonts
-		const fonts = await getFontList(this.apiKey);
+		this.fontList = await getFontList(this.apiKey);
 
 		// Save desired fonts in the font map
-		for (let i = 0; i < fonts.length; i += 1) {
-			const font = fonts[i];
+		for (let i = 0; i < this.fontList.length; i += 1) {
+			const font = this.fontList[i];
 			// Exit once specified limit of number of fonts is reached
 			if (this.fonts.size >= this.options.limit) {
 				break;
